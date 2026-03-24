@@ -1,0 +1,1 @@
+<span class="px-3 py-1 bg-[#F1F5F9] text-[#64748B] text-xs font-medium rounded-full">{{ $slot }}</span>
