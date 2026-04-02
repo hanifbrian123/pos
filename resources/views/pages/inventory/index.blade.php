@@ -5,16 +5,18 @@
 <div class="flex justify-between items-start mb-8">
     <div>
         <h1 class="text-3xl font-bold text-[#0F172A]">Menu Management</h1>
-        <p class="text-[#64748B] mt-1">Manage your products, prices, and categories</p>
+        <p class="text-[#64748B] mt-1">Manage items</p>
     </div>
     <button data-open-modal='addItemModal' class="bg-[#0F172A] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#1E293B] transition-colors">
         <i data-lucide="plus" class="w-4 h-4"></i>
-        Add Menu Item
+        Add Item
     </button>
 </div>
 
+
+
 {{-- Table --}}
-<x-table.container :id="'itemTable'">
+<x-table.container :id="'itemTable'" :isEmptyData="$items->isEmpty()">
     {{-- Table Header --}}
     <x-table.header
     class=""
@@ -28,12 +30,16 @@
             <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="px-6 py-6 font-semibold text-[#1E293B]">{{ $item->name }}</td>
                 <td class="px-6 py-6">
-                    <x-table.action dataId="{{ $item->id }}" dataOpenModal='editItemModal'/>
+                    <x-table.action dataId="{{ $item->id }}" dataOpenEditModal='editItemModal' dataOpenDeleteModal='deleteItemModal'/>
                 </td>
             </tr>
         @endforeach
     </x-table.body>
 </x-table.container>
+
+
+
+{{-- MODAL --}}
 
 {{-- Add Item Modal --}}
 <x-ui.modal id="addItemModal" title='Add New Item' :submitBtnText='"Add Item"' action="{{ route('inventory.store') }}">
@@ -63,18 +69,13 @@
             </small>
         @enderror
     </x-form.input>
-    {{-- @php
-    $allOldInput = session()->getOldInput();
-        // Alternatively, you can use:
-        // $allOldInput = Request::old(); // If using the Request facade
-    @endphp --}}
-
-    {{-- You can then loop through the array to display or inspect the values --}}
-    {{-- @foreach ($allOldInput as $key => $value)
-        <p>Field: {{ $key }}, Value: {{ $value }}</p>
-    @endforeach --}}
-
 </x-ui.modal>
+
+
+{{-- Delete item modal --}}
+<x-ui.alert id="deleteItemModal" title='Delete Item' :message='"Apakah anda yakin ingin hapus item ini?"' :noDesc='"Cancel"' :yesDesc="'Delete'"/>
+
+{{-- END MODAL --}}
 
 
 
@@ -83,10 +84,14 @@
     {{ session('addItem.success') }}
 </x-ui.confirm>
 
-
 {{-- Alert Success Update Item --}}
 <x-ui.confirm  id="alertSuccessUpdateItem"  :header='"Success!"' :btnText='"Ok!"'>
     {{ session('updateItem.success') }}
+</x-ui.confirm>
+
+{{-- Alert Success Update Item --}}
+<x-ui.confirm  id="alertSuccessDeleteItem"  :header='"Success!"' :btnText='"Ok!"'>
+    {{ session('deleteItem.success') }}
 </x-ui.confirm>
 
 
@@ -94,17 +99,20 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        
+        // Add
         @if (session('addItem.success'))
             Modal.open('alertSuccessStoredItem');
         @endif
+
         @if ($errors->addItem->any())
             Modal.open('addItemModal');
         @endif
         
+        // Update
         @if (session('updateItem.success'))
             Modal.open('alertSuccessUpdateItem');
         @endif
+
         @if ($errors->updateItem->any())
             Modal.open('editItemModal')
             const oldId = "{{ old('id') }}"
@@ -114,6 +122,11 @@
                     'action':`/inventory/${oldId}`
                 }
             )
+        @endif
+
+        // Delete
+        @if (session('deleteItem.success'))
+            Modal.open('alertSuccessDeleteItem')
         @endif
     })
 </script>
