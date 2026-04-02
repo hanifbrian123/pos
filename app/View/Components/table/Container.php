@@ -12,7 +12,9 @@ class Container extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $id
+        public string $id,
+        public bool $isEmptyData
+
     )
     {
         //
