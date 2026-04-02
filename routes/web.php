@@ -8,12 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('inventory', InventoryController::class);
+// Route::resource('inventory', InventoryController::class);
 
-// Route::resources([
-//     'menu'=> MenuController::class,
-//     'inventory'=> InventoryController::class
-// ]);
+Route::resources([
+    'menu'=> MenuController::class,
+    'inventory'=> InventoryController::class
+]);
 
 
 Route::get('inventory/showAjax/{id}', [InventoryController::class, 'showAjax'])->name('inventory.showAjax');

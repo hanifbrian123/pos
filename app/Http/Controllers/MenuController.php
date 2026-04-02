@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -11,7 +12,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        $menus = Menu::orderBy('updated_at', 'desc')->get();
+        return view('pages.menu.index', compact('menus'));
     }
 
     /**
