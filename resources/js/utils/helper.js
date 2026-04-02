@@ -9,7 +9,6 @@ export function getCsrfToken() {
 
 export function fillFormBySelectors(formSelector, body, header) {
   const form = document.querySelector(formSelector);
-  console.log("masuk fill: ", body, header);
   // fill body
   Object.entries(body).forEach(([key, value])=>{
     form.querySelector(key).value = value;
