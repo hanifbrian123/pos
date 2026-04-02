@@ -13,7 +13,8 @@ class Action extends Component
      */
     public function __construct(
         public string $dataId,
-        public string $dataOpenModal,
+        public string $dataOpenEditModal,
+        public string $dataOpenDeleteModal,
     )
     {
         //
