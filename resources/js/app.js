@@ -4,6 +4,7 @@ import { getCsrfToken, fillFormBySelectors } from './utils/helper';
 import './components/modal';
 import './pages/inventory';
 import './modules/validation/form-validator';
+import './components/search-filter';
 
 window.fillFormBySelectors = fillFormBySelectors
 
