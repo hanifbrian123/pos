@@ -74,7 +74,11 @@ class InventoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Item::findOrFail($id);
+        if ($item) {
+            $item->delete();
+        }
+        return redirect()->route('inventory.index')->with('deleteItem.success', 'Item berhasil dihapus');
     }
 
     public function showAjax(string $id) {
