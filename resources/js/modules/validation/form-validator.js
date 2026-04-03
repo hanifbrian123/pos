@@ -1,23 +1,23 @@
 import Validator from "./validator";
 
-document.addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const form = e.target
+document.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  if (!form.matches('form')) {
-    return;
-  }
+    const form = e.target;
 
-  let valid = true;
-  
-  form.querySelectorAll('[data-rule]').forEach(field => {
-    if (!Validator.validateField(field)) {
-      valid = false;
+    if (!form.matches("form")) {
+        return;
     }
-  });
-  
-  if (valid) {
-    form.submit();
-  }
-})
+
+    let valid = true;
+
+    form.querySelectorAll("[data-rule]").forEach((field) => {
+        if (!Validator.validateField(field)) {
+            valid = false;
+        }
+    });
+
+    if (valid) {
+        form.submit();
+    }
+});
