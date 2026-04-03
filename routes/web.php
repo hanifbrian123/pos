@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,9 +10,7 @@ Route::get('/', function () {
 // Route::resource('inventory', InventoryController::class);
 
 Route::resources([
-    'menu'=> MenuController::class,
-    'inventory'=> InventoryController::class
+    'product'=> ProductController::class,
 ]);
 
-
-Route::get('inventory/showAjax/{id}', [InventoryController::class, 'showAjax'])->name('inventory.showAjax');
+Route::get('product/showAjax/{id}', [ProductController::class, 'showAjax'])->name('product.showAjax');
