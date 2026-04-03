@@ -7,17 +7,10 @@
     </x-nav-link>
 
     <x-nav-link 
-        :isCurrent="request()->is('menu')"
-        href="menu" 
-        :dataLucide="'utensils-crossed'">
-        Menu
-    </x-nav-link>
-
-    <x-nav-link 
-        :isCurrent="request()->is('inventory')"
-        href="inventory" 
-        :dataLucide="'box'">
-        Inventory
+        :isCurrent="request()->is('product')"
+        href="{{ route('product.index') }}" 
+        :dataLucide="'layout-grid'">
+        Produk
     </x-nav-link>
 
     <x-nav-link 
